@@ -7,9 +7,27 @@ const MarketPriceGraph = () => {
   const [loading, setLoading] = useState(true);
 
   var startDate = new Date("2023-01-01T00:00:00Z").toISOString();
-  var endDate = new Date("2023-01-02T00:00:00Z").toISOString();
+  var endDate = new Date("2025-01-02T00:00:00Z").toISOString();
 
   // Fetch data from the backend proxy endpoint
+  useEffect(() => {
+    getMarketPrice(startDate, endDate)
+      .then((response) => {
+        // console.log(response.data);
+        setDataPoints(response.data);
+      })
+      .catch((error) => {
+        console.error(
+          "There was an error fetching the market price data!",
+          error
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // Transform the fetched data into two series for ECharts
   const transformAggregatedData = () => {
     const seriesCents = {
       name: 'Avg Cents Per kWh',
