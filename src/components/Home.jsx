@@ -3,7 +3,7 @@ import { getCustomerById } from '../services/customerService'
 
 const Home = () => {
     const [userDetails, setUserDetails] = useState({}) 
-    let userId = '92fadd5f-1f5b-4e7b-85a5-c70b81142172'
+    let userId = '2'
 
   useEffect(() => {
     getCustomerById(userId)
